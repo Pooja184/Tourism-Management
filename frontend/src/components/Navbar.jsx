@@ -2,12 +2,25 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
 import { FaUserCircle } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../features/user/userSlice.JS"; // adjust path if needed
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { token, user } = useSelector((state) => state.user);
+  // console.log(user)
+
+  const handleLogout = () => {
+    dispatch(logout());
+    setMobileDropdownOpen(false);
+    setMenuOpen(false);
+    navigate("/");
+  };
 
   return (
     <>
@@ -16,25 +29,26 @@ const Navbar = () => {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex space-x-6 text-neutral font-semibold items-center">
-          <NavLink to="/" className="hover:text-accent hover:underline underline-offset-4 transition">
-            Home
-          </NavLink>
-          <NavLink to="/destinations" className="hover:text-accent hover:underline underline-offset-4 transition">
-            Destinations
-          </NavLink>
-          <NavLink to="/book" className="hover:text-accent hover:underline underline-offset-4 transition">
-            Book Tour
-          </NavLink>
-          <NavLink to="/contact" className="hover:text-accent hover:underline underline-offset-4 transition">
-            Contact
-          </NavLink>
+          <NavLink to="/" className="hover:text-accent hover:underline underline-offset-4 transition">Home</NavLink>
+          <NavLink to="/destinations" className="hover:text-accent hover:underline underline-offset-4 transition">Destinations</NavLink>
+          <NavLink to="/book" className="hover:text-accent hover:underline underline-offset-4 transition">Book Tour</NavLink>
+          <NavLink to="/contact" className="hover:text-accent hover:underline underline-offset-4 transition">Contact</NavLink>
 
-          {/* Profile Dropdown - Hover on Desktop */}
+          {/* Profile Dropdown - Desktop */}
           <div className="relative group">
             <FaUserCircle className="text-2xl cursor-pointer hover:text-accent transition" />
-            <div className="absolute text-sm right-0 mt-3 w-40 bg-white rounded shadow-md py-3 px-4 text-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
-              <p onClick={() => navigate("/login")} className="cursor-pointer hover:text-accent  mb-2">Sign Up/In as User</p>
-              <p onClick={() => navigate("/adminlogin")} className="cursor-pointer hover:text-accent">Sign Up/In as Admin</p>
+            <div className="absolute text-sm right-0 mt-3 w-44 bg-white rounded shadow-md py-3 px-4 text-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+              {token ? (
+                <>
+                  <p className="mb-2">Hii, {user?.name || "User"}</p>
+                  <p onClick={handleLogout} className="cursor-pointer hover:text-accent">Logout</p>
+                </>
+              ) : (
+                <>
+                  <p onClick={() => navigate("/login")} className="cursor-pointer hover:text-accent mb-2">Sign Up/In as User</p>
+                  <p onClick={() => navigate("/adminlogin")} className="cursor-pointer hover:text-accent">Sign Up/In as Admin</p>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -61,8 +75,17 @@ const Navbar = () => {
             />
             {mobileDropdownOpen && (
               <div className="mt-3 flex flex-col gap-2 bg-white text-gray-700 p-4 rounded shadow-md w-40">
-                <p onClick={() => navigate("/")} className="cursor-pointer hover:text-accent">Sign Up/In as User</p>
-                <p onClick={() => navigate("/")} className="cursor-pointer hover:text-accent">Sign Up/In as admin</p>
+                {token ? (
+                  <>
+                    <p>Hii, {user?.name || "User"}</p>
+                    <p onClick={handleLogout} className="cursor-pointer hover:text-accent">Logout</p>
+                  </>
+                ) : (
+                  <>
+                    <p onClick={() => navigate("/login")} className="cursor-pointer hover:text-accent">Sign Up/In as User</p>
+                    <p onClick={() => navigate("/adminlogin")} className="cursor-pointer hover:text-accent">Sign Up/In as Admin</p>
+                  </>
+                )}
               </div>
             )}
           </div>
