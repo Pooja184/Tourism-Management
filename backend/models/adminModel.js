@@ -20,5 +20,5 @@ const adminSchema=new mongoose.Schema({
     }
 },{minimize:false})
 
-const userModel=mongoose.models.admin || mongoose.model('admin',adminSchema);
-export default userModel;
+const adminModel=mongoose.models.admin || mongoose.model('admin',adminSchema);
+export default adminModel;
