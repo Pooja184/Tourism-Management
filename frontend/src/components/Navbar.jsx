@@ -14,6 +14,7 @@ const Navbar = () => {
 
   const { token, user } = useSelector((state) => state.user);
   // console.log(user)
+  // console.log(token)
 
   const handleLogout = () => {
     dispatch(logout());

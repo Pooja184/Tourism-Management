@@ -45,10 +45,12 @@ const userSlice = createSlice({
   name: "user",
 
   initialState: {
-    user: null,
-    token: localStorage.getItem("token") || null,
-    loading: false,
-    error: null,
+   user: localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null,
+  token: localStorage.getItem("token") || null,
+  loading: false,
+  error: null,
   },
   reducers: {
     logout: (state) => {
