@@ -30,6 +30,8 @@ const Login = () => {
       navigate('/')
     } else {
       dispatch(registerUser(formData));
+      navigate('/')
+
     }
   };
 
