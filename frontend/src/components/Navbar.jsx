@@ -3,7 +3,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
 import { FaUserCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../features/user/userSlice.JS"; // adjust path if needed
+import { userLogout } from "../features/user/userSlice.JS"; // adjust path if needed
+import { adminLogout } from "../features/admin/adminSlice.JS"; // adjust path if needed
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -12,12 +13,21 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { token, user } = useSelector((state) => state.user);
+  const { token:userToken, user } = useSelector((state) => state.user);
+  const { token:adminToken, admin } = useSelector((state) => state.admin);
+
   // console.log(user)
   // console.log(token)
 
-  const handleLogout = () => {
-    dispatch(logout());
+  const handleLogoutUser = () => {
+    dispatch(userLogout());
+    setMobileDropdownOpen(false);
+    setMenuOpen(false);
+    navigate("/");
+  };
+  
+  const handleLogoutAdmin = () => {
+    dispatch(adminLogout());
     setMobileDropdownOpen(false);
     setMenuOpen(false);
     navigate("/");
@@ -39,12 +49,19 @@ const Navbar = () => {
           <div className="relative group">
             <FaUserCircle className="text-2xl cursor-pointer hover:text-accent transition" />
             <div className="absolute text-sm right-0 mt-3 w-44 bg-white rounded shadow-md py-3 px-4 text-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
-              {token ? (
+              {userToken ? (
                 <>
                   <p className="mb-2">Hii, {user?.name || "User"}</p>
-                  <p onClick={handleLogout} className="cursor-pointer hover:text-accent">Logout</p>
+                  <p onClick={handleLogoutUser} className="cursor-pointer hover:text-accent">Logout</p>
                 </>
-              ) : (
+              ) :
+              adminToken?(
+                <>
+                <p className="mb-2">Hii, {admin?.name || "Admin"}</p>
+                  <p onClick={handleLogoutAdmin} className="cursor-pointer hover:text-accent">Logout</p>
+                </>
+              )
+               :(
                 <>
                   <p onClick={() => navigate("/login")} className="cursor-pointer hover:text-accent mb-2">Sign Up/In as User</p>
                   <p onClick={() => navigate("/adminlogin")} className="cursor-pointer hover:text-accent">Sign Up/In as Admin</p>

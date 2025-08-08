@@ -48,15 +48,15 @@ const userSlice = createSlice({
    user: localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user"))
     : null,
-  token: localStorage.getItem("token") || null,
+  token: localStorage.getItem("userToken") || null,
   loading: false,
   error: null,
   },
   reducers: {
-    logout: (state) => {
+    userLogout: (state) => {
       state.user = null;
       state.token = null;
-      localStorage.removeItem("token");
+      localStorage.removeItem("userToken");
       localStorage.removeItem("user");
     },
   },
@@ -70,8 +70,9 @@ const userSlice = createSlice({
         state.loading = false;
         state.token = action.payload.token;
         state.user = action.payload.user;
-        localStorage.setItem("token", action.payload.token);
+        localStorage.setItem("userToken", action.payload.token);
         localStorage.setItem("user", JSON.stringify(action.payload.user));
+
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
@@ -87,7 +88,7 @@ const userSlice = createSlice({
         state.token = action.payload.token;
         state.user = action.payload.user;
         if (action.payload.token) {
-          localStorage.setItem("token", action.payload.token);
+          localStorage.setItem("userToken", action.payload.token);
         }
 
         if (action.payload.user) {
@@ -104,5 +105,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { logout } = userSlice.actions;
+export const { userLogout } = userSlice.actions;
 export default userSlice.reducer;
