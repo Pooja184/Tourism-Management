@@ -14,7 +14,7 @@ const Login = () => {
 
   const navigate= useNavigate();
   const dispatch = useDispatch();
-  const { loading, error, token } = useSelector((state) => state.admin);
+  const { loading, error, adminToken } = useSelector((state) => state.admin);
 
   const handleChange = (e) => {
     setFormData({
@@ -36,10 +36,10 @@ const Login = () => {
   };
 
   useEffect(() => {
-  if (token) {
+  if (adminToken) {
     setFormData({ name: "", email: "", password: "" });
   }
-}, [token]);
+}, [adminToken]);
   return (
     <div className="bg-[#F5EFE6] min-h-screen flex justify-center items-center">
       <form
@@ -114,7 +114,7 @@ const Login = () => {
           <p className="text-center text-sm text-gray-500">Processing...</p>
         )}
         {error && <p className="text-center text-sm text-red-500">{error}</p>}
-        {token && (
+        {adminToken && (
           <p className="text-center text-sm text-green-600">
             Login Successful!
           </p>
