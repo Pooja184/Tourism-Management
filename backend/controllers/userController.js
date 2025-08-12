@@ -57,8 +57,8 @@ const userLogiin = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (isMatch) {
-      const token = createToken(user._id);
-      res.json({ success: true, token,user });
+      const userToken = createToken(user._id);
+      res.json({ success: true, userToken,user });
     } else {
       res.json({ success: false, message: "Invalid credentials" });
     }
