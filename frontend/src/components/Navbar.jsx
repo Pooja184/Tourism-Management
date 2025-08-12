@@ -13,8 +13,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { token:userToken, user } = useSelector((state) => state.user);
-  const { token:adminToken, admin } = useSelector((state) => state.admin);
+  const { userToken:userToken, user } = useSelector((state) => state.user);
+  const { adminToken:adminToken, admin } = useSelector((state) => state.admin);
 
   // console.log(user)
   // console.log(token)
