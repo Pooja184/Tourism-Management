@@ -48,14 +48,14 @@ const userSlice = createSlice({
    user: localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user"))
     : null,
-  token: localStorage.getItem("userToken") || null,
+  userToken: localStorage.getItem("userToken") || null,
   loading: false,
   error: null,
   },
   reducers: {
     userLogout: (state) => {
       state.user = null;
-      state.token = null;
+      state.userToken = null;
       localStorage.removeItem("userToken");
       localStorage.removeItem("user");
     },
@@ -68,9 +68,9 @@ const userSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.token = action.payload.token;
+        state.userToken = action.payload.userToken;
         state.user = action.payload.user;
-        localStorage.setItem("userToken", action.payload.token);
+        localStorage.setItem("userToken", action.payload.userToken);
         localStorage.setItem("user", JSON.stringify(action.payload.user));
 
       })
@@ -85,10 +85,10 @@ const userSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.token = action.payload.token;
+        state.userToken = action.payload.userToken;
         state.user = action.payload.user;
-        if (action.payload.token) {
-          localStorage.setItem("userToken", action.payload.token);
+        if (action.payload.userToken) {
+          localStorage.setItem("userToken", action.payload.userToken);
         }
 
         if (action.payload.user) {

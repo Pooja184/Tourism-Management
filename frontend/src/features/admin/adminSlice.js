@@ -48,14 +48,14 @@ const adminSlice = createSlice({
    admin: localStorage.getItem("admin")
     ? JSON.parse(localStorage.getItem("admin"))
     : null,
-  token: localStorage.getItem("adminToken") || null,
+  adminToken: localStorage.getItem("adminToken") || null,
   loading: false,
   error: null,
   },
   reducers: {
     adminLogout: (state) => {
       state.admin = null;
-      state.token = null;
+      state.adminToken = null;
       localStorage.removeItem("adminToken");
       localStorage.removeItem("admin");
     },
@@ -68,9 +68,9 @@ const adminSlice = createSlice({
       })
       .addCase(registerAdmin.fulfilled, (state, action) => {
         state.loading = false;
-        state.token = action.payload.token;
+        state.adminToken = action.payload.adminToken;
         state.admin = action.payload.admin;
-        localStorage.setItem("adminToken", action.payload.token);
+        localStorage.setItem("adminToken", action.payload.adminToken);
         localStorage.setItem("admin", JSON.stringify(action.payload.admin));
 
       })
@@ -85,10 +85,10 @@ const adminSlice = createSlice({
       })
       .addCase(loginAdmin.fulfilled, (state, action) => {
         state.loading = false;
-        state.token = action.payload.token;
+        state.adminToken = action.payload.adminToken;
         state.admin = action.payload.admin;
-        if (action.payload.token) {
-          localStorage.setItem("adminToken", action.payload.token);
+        if (action.payload.adminToken) {
+          localStorage.setItem("adminToken", action.payload.adminToken);
         }
 
         if (action.payload.admin) {
