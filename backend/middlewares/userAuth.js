@@ -1,14 +1,14 @@
 import jwt from 'jsonwebtoken';
 
 const authUser=async(req,res,next)=>{
-    const {userToken} = req.headers;
+    const {usertoken} = req.headers;
     // console.log(req.headers);
 
-    if(!userToken){
+    if(!usertoken){
         return res.json({success:false,message:"Not Authorized Login Again"});
     }
     try {
-        const token_decode= jwt.verify(userToken,process.env.JWT_SECRET);
+        const token_decode= jwt.verify(usertoken,process.env.JWT_SECRET);
         req.userId=token_decode.id;
         next();
     } catch (error) {
