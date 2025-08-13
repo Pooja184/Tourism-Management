@@ -33,8 +33,8 @@ const adminRegister=async(req,res)=>{
          });
     const admin = await newAdmin.save();
 
-         const token=createToken(admin._id);
-    res.json({ success: true, token ,admin});
+         const adminToken=createToken(admin._id);
+    res.json({ success: true, adminToken ,admin});
 
    } catch (error) {
     // console.log(error)
