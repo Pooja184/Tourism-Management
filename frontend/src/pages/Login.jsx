@@ -12,7 +12,7 @@ const Login = () => {
     password: "",
   });
 
-  const navigate= useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading, error, userToken } = useSelector((state) => state.user);
 
@@ -23,23 +23,33 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (currentState === "Login") {
-      dispatch(loginUser(formData));
-      navigate('/')
-    } else {
-      dispatch(registerUser(formData));
-      navigate('/')
 
+    if (currentState === "Login") {
+      const result = await dispatch(loginAdmin(formData));
+
+      if (result.payload?.success) {
+        navigate("/");
+      } else {
+        alert(result.payload?.message || "Login failed");
+      }
+    } else {
+      const result = await dispatch(registerAdmin(formData));
+
+      if (result.payload?.success) {
+        navigate("/");
+      } else {
+        alert(result.payload?.message || "Registration failed");
+      }
     }
   };
 
   useEffect(() => {
-  if (userToken) {
-    setFormData({ name: "", email: "", password: "" });
-  }
-}, [userToken]);
+    if (userToken) {
+      setFormData({ name: "", email: "", password: "" });
+    }
+  }, [userToken]);
   return (
     <div className="bg-[#F5EFE6] min-h-screen flex justify-center items-center">
       <form
