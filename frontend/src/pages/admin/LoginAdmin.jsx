@@ -23,17 +23,29 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (currentState === "Login") {
-      dispatch(loginAdmin(formData));
-      navigate('/')
-    } else {
-      dispatch(registerAdmin(formData));
-      navigate('/')
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
+  if (currentState === "Login") {
+    const result = await dispatch(loginAdmin(formData));
+
+    if (result.payload?.success) {
+      navigate('/');
+    } else {
+      alert(result.payload?.message || "Login failed");
     }
-  };
+
+  } else {
+    const result = await dispatch(registerAdmin(formData));
+
+    if (result.payload?.success) {
+      navigate('/');
+    } else {
+      alert(result.payload?.message || "Registration failed");
+    }
+  }
+};
+
 
   useEffect(() => {
   if (adminToken) {
