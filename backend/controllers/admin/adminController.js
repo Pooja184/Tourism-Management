@@ -1,4 +1,4 @@
-import adminModel from "../models/adminModel.js"
+import adminModel from "../../models/adminModel.js"
 import validator from "validator";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
