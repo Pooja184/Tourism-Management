@@ -19,7 +19,7 @@ app.use(cors());
 //ap endpoints
 app.use('/api/user',userRouter);
 app.use('/api/admin',adminRouter);
-app.use('/api/tour',tourRouter);
+app.use('/api/tours',tourRouter);
 
 app.get('/',(req,res)=>{
     res.send("API working");
