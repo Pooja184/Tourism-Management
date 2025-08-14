@@ -11,6 +11,8 @@ import Temples from './pages/Temples'
 import Waterfalls from './pages/Waterfalls'
 import Login from './pages/Login'
 import LoginAdmin from './pages/admin/LoginAdmin';
+import AddTours from './pages/admin/AddTours';
+import HomeAdmin from './pages/admin/Home';
 
 const App = () => {
   return (
@@ -25,7 +27,11 @@ const App = () => {
     <Route path='/temples' element={<Temples/>}/>
     <Route path='/waterfalls' element={<Waterfalls/>}/>
     <Route path='/login' element={<Login/>}/>
+
     <Route path='/adminlogin' element={<LoginAdmin/>}/>
+    <Route path='/home' element={<HomeAdmin/>}/>
+    <Route path='/addtours' element={<AddTours/>}/>
+
 
    </Routes>
    <Footer/>
