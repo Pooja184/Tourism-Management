@@ -30,7 +30,7 @@ const Login = () => {
     const result = await dispatch(loginAdmin(formData));
 
     if (result.payload?.success) {
-      navigate('/');
+      navigate('/home');
     } else {
       alert(result.payload?.message || "Login failed");
     }
@@ -39,7 +39,7 @@ const Login = () => {
     const result = await dispatch(registerAdmin(formData));
 
     if (result.payload?.success) {
-      navigate('/');
+      navigate('/home');
     } else {
       alert(result.payload?.message || "Registration failed");
     }
