@@ -1,20 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginAdmin, registerAdmin } from "../../features/admin/adminSlice"; // adjust path if needed
-import { useEffect } from "react";
+import { loginAdmin, registerAdmin } from "../../features/admin/adminSlice";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 const Login = () => {
   const [currentState, setCurrentState] = useState("Login");
+  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
+  const [success, setSuccess] = useState(false);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-
-  const navigate= useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading, error, adminToken } = useSelector((state) => state.admin);
+  const { loading, error } = useSelector((state) => state.admin);
 
   const handleChange = (e) => {
     setFormData({
@@ -24,34 +21,29 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
+    setSuccess(false);
 
-  if (currentState === "Login") {
-    const result = await dispatch(loginAdmin(formData));
+    let result;
 
-    if (result.payload?.success) {
-      navigate('/home');
+    if (currentState === "Login") {
+      result = await dispatch(loginAdmin(formData));
     } else {
-      alert(result.payload?.message || "Login failed");
+      result = await dispatch(registerAdmin(formData));
     }
 
-  } else {
-    const result = await dispatch(registerAdmin(formData));
-
     if (result.payload?.success) {
-      navigate('/home');
+      setSuccess(true);
+      setFormData({ name: "", email: "", password: "" });
+      setTimeout(() => {
+        navigate("/admin");
+      }, 1500);
     } else {
-      alert(result.payload?.message || "Registration failed");
+      setSuccess(false);
+      toast(result.payload?.message || "Something went wrong");
     }
-  }
-};
+  };
 
-
-  useEffect(() => {
-  if (adminToken) {
-    setFormData({ name: "", email: "", password: "" });
-  }
-}, [adminToken]);
   return (
     <div className="bg-[#F5EFE6] min-h-screen flex justify-center items-center">
       <form
@@ -122,13 +114,16 @@ const Login = () => {
         >
           {currentState === "Login" ? "Sign In" : "Sign Up"}
         </button>
+
         {loading && (
           <p className="text-center text-sm text-gray-500">Processing...</p>
         )}
         {error && <p className="text-center text-sm text-red-500">{error}</p>}
-        {adminToken && (
+        {success && (
           <p className="text-center text-sm text-green-600">
-            Login Successful!
+            {currentState === "Login"
+              ? "Login Successful!"
+              : "Registration Successful!"}
           </p>
         )}
       </form>
