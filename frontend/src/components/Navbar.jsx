@@ -58,7 +58,7 @@ const Navbar = () => {
               adminToken?(
                 <>
                 <p className="mb-2">Hii, {admin?.name || "Admin"}</p>
-                  <p onClick={()=>navigate('/home')} className="cursor-pointer hover:text-accent mb-2">Home</p>
+                  <p onClick={()=>navigate('/admin')} className="cursor-pointer hover:text-accent mb-2">Home</p>
                   <p onClick={handleLogoutAdmin} className="cursor-pointer hover:text-accent ">Logout</p>
 
                 </>
