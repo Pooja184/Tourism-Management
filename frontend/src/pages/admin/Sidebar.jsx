@@ -34,7 +34,7 @@ const Sidebar = () => {
         </NavLink>
 
         <NavLink 
-          to="/admin/list"
+          to="/admin/listTours"
           className={({ isActive }) =>
             isActive 
               ? "flex items-center gap-3 px-3 py-2 bg-blue-100 text-blue-600 font-semibold rounded"
