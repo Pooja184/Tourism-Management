@@ -27,12 +27,26 @@ export const addTour = createAsyncThunk(
   }
 );
 
+export const listTours=createAsyncThunk(
+  "tour/fetchTours",
+  async (_,{rejectWithValue})=>{
+    try {
+      const res=await axios.get(`${backendURL}/api/tours/list`);
+      console.log(res.data)
+      return res.data
+    } catch (error) {
+      console.log(error)
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+)
 const tourSlice = createSlice({
   name: "tour",
   initialState: {
     loading: false,
     success: false,
     error: null,
+    tours:[],
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -48,7 +62,19 @@ const tourSlice = createSlice({
       .addCase(addTour.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
+      })
+      .addCase(listTours.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    })
+    .addCase(listTours.fulfilled, (state, action) => {
+      state.loading = false;
+      state.tours = action.payload.tours; // store tours from backend
+    })
+    .addCase(listTours.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
   },
 });
 
