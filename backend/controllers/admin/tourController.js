@@ -30,4 +30,13 @@ const addTour=async(req,res)=>{
     }
 }
 
-export {addTour} 
+const listTours=async (req,res)=>{
+    try {
+        const products=await addTourModel.find({});
+        res.json({success:true,products})
+    } catch (error) {
+        res.json({success:false,message:error.message})
+    }
+}
+
+export {addTour,listTours} 
