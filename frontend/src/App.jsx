@@ -13,6 +13,7 @@ import Login from "./pages/Login";
 import LoginAdmin from "./pages/admin/LoginAdmin";
 import AddTours from "./pages/admin/AddTours";
 import HomeAdmin from "./pages/admin/Home"; // layout with sidebar
+import AllTours from "./pages/admin/AllTours";
 
 const App = () => {
   return (
@@ -33,6 +34,8 @@ const App = () => {
 
         <Route path="/admin" element={<HomeAdmin />}>
           <Route path="addtours" element={<AddTours />} />
+          <Route path="listTours" element={<AllTours />} />
+
         </Route>
       </Routes>
       <Footer />
