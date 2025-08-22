@@ -34,8 +34,8 @@ const addTour=async(req,res)=>{
 
 const listTours=async (req,res)=>{
     try {
-        const userId=req.userId;
-        const tours=await addTourModel.find({userId});
+        const adminId=req.adminId;
+        const tours=await addTourModel.find({adminId});
         res.json({success:true,tours})
     } catch (error) {
         res.json({success:false,message:error.message})
