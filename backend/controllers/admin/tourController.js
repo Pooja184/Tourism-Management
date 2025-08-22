@@ -5,7 +5,8 @@ const addTour=async(req,res)=>{
     try {
         const {tourName,description,price,date}=req.body;
         const image =req.file;
-
+        const adminId=req.adminId;
+        console.log(adminId)
         if(!image){
            return  res.json({success:false,message:"Image is required"})
         }
@@ -13,6 +14,7 @@ const addTour=async(req,res)=>{
         const uploadedImage=await cloudinary.uploader.upload(image.path,{folder:"tours"});
 
         const newTour={
+            adminId,
             tourName,
             description,
             price,
@@ -32,7 +34,8 @@ const addTour=async(req,res)=>{
 
 const listTours=async (req,res)=>{
     try {
-        const tours=await addTourModel.find({});
+        const userId=req.userId;
+        const tours=await addTourModel.find({userId});
         res.json({success:true,tours})
     } catch (error) {
         res.json({success:false,message:error.message})
