@@ -6,7 +6,7 @@ import { addTour, listTours } from "../controllers/admin/tourController.js";
 const tourRouter=express.Router();
 
 tourRouter.post("/add",adminAuth,upload.single('image'),addTour);
-tourRouter.get("/list",listTours);
+tourRouter.get("/list",adminAuth,listTours);
 
 
 export default tourRouter;
