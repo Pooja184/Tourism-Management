@@ -10,7 +10,7 @@ const authAdmin=async(req,res,next)=>{
     }
     try {
         const token_decode= jwt.verify(admintoken,process.env.JWT_SECRET);
-        req.userId=token_decode.id;
+        req.adminId=token_decode.id;
         next();
     } catch (error) {
         console.log(error);
