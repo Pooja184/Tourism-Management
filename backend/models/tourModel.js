@@ -1,6 +1,11 @@
 import mongoose from 'mongoose';
 
 const addTourSchema= new mongoose.Schema({
+     adminId: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "admin", // Reference to the Admin collection
+        required: true
+    },
     tourName:{
         type:String,
         required:true
