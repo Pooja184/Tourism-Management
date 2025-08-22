@@ -16,7 +16,7 @@ export const addTour = createAsyncThunk(
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            adminToken: adminToken, // for authAdmin middleware
+            admintoken: adminToken, // for authAdmin middleware
           }
         }
       );
@@ -31,8 +31,8 @@ export const listTours=createAsyncThunk(
   "tour/fetchTours",
   async (_,{rejectWithValue})=>{
     try {
-      const res=await axios.get(`${backendURL}/api/tours/list`);
-      console.log(res.data)
+      const res=await axios.get(`${backendURL}/api/tours/list`,{},{headers:{adminToken}});
+      // console.log(res.data)
       return res.data
     } catch (error) {
       console.log(error)
