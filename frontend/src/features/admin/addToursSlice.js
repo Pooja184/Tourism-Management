@@ -29,9 +29,11 @@ export const addTour = createAsyncThunk(
 
 export const listTours=createAsyncThunk(
   "tour/fetchTours",
-  async (_,{rejectWithValue})=>{
+  async (_,{rejectWithValue,getState})=>{
     try {
-      const res=await axios.get(`${backendURL}/api/tours/list`,{},{headers:{adminToken}});
+      const state = getState();
+      const adminToken = state.admin.adminToken;
+      const res=await axios.get(`${backendURL}/api/tours/list`,{headers:{admintoken:adminToken}});
       // console.log(res.data)
       return res.data
     } catch (error) {
