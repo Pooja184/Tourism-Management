@@ -14,7 +14,7 @@ import LoginAdmin from "./pages/admin/LoginAdmin";
 import AddTours from "./pages/admin/AddTours";
 import HomeAdmin from "./pages/admin/Home"; // layout with sidebar
 import AllTours from "./pages/admin/AllTours";
-
+import Tours from "./pages/Tours"
 const App = () => {
   return (
     <div>
@@ -28,6 +28,7 @@ const App = () => {
         <Route path="/temples" element={<Temples />} />
         <Route path="/waterfalls" element={<Waterfalls />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/tours" element={<Tours/>} />
 
         {/* Admin Side */}
         <Route path="/adminlogin" element={<LoginAdmin />} />
