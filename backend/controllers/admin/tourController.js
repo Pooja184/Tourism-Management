@@ -42,4 +42,27 @@ const listTours=async (req,res)=>{
     }
 }
 
-export {addTour,listTours} 
+//user
+const getAllTours=async(req,res)=>{
+    try {
+        const allToursData = await addTourModel.find({}).sort({ createdAt: -1 }); // newest first
+
+    // If no tours found
+    if (!allToursData || allToursData.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No tours found",
+      });
+    }
+
+    res.json({
+      success: true,
+      allToursData,
+    });
+    } catch (error) {
+        res.json({success:false,message:error.message})
+        console.log(error.message)
+    }
+}
+
+export {addTour,listTours,getAllTours} 
