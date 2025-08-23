@@ -42,7 +42,7 @@ const Navbar = () => {
         <div className="hidden md:flex space-x-6 text-neutral font-semibold items-center">
           <NavLink to="/" className="hover:text-accent hover:underline underline-offset-4 transition">Home</NavLink>
           <NavLink to="/destinations" className="hover:text-accent hover:underline underline-offset-4 transition">Destinations</NavLink>
-          <NavLink to="/addtours" className="hover:text-accent hover:underline underline-offset-4 transition">Book Tour</NavLink>
+          <NavLink to="/tours" className="hover:text-accent hover:underline underline-offset-4 transition">Book Tour</NavLink>
           <NavLink to="/contact" className="hover:text-accent hover:underline underline-offset-4 transition">Contact</NavLink>
 
           {/* Profile Dropdown - Desktop */}
@@ -84,7 +84,7 @@ const Navbar = () => {
         <div className="absolute top-16 left-0 w-full bg-black bg-opacity-90 text-neutral flex flex-col items-center space-y-4 py-6 z-40 md:hidden">
           <NavLink to="/" onClick={() => setMenuOpen(false)} className="text-lg hover:text-accent hover:underline underline-offset-4 transition">Home</NavLink>
           <NavLink to="/destinations" onClick={() => setMenuOpen(false)} className="text-lg hover:text-accent hover:underline underline-offset-4 transition">Destinations</NavLink>
-          <NavLink to="/addtours" onClick={() => setMenuOpen(false)} className="text-lg hover:text-accent hover:underline underline-offset-4 transition">Book Tour</NavLink>
+          <NavLink to="/tours" onClick={() => setMenuOpen(false)} className="text-lg hover:text-accent hover:underline underline-offset-4 transition">Book Tour</NavLink>
           <NavLink to="/contact" onClick={() => setMenuOpen(false)} className="text-lg hover:text-accent hover:underline underline-offset-4 transition">Contact</NavLink>
 
           {/* Mobile Dropdown */}
