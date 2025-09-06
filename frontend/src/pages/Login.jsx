@@ -27,7 +27,7 @@ const Login = () => {
     e.preventDefault();
 
     if (currentState === "Login") {
-      const result = await dispatch(loginAdmin(formData));
+      const result = await dispatch(loginUser(formData));
 
       if (result.payload?.success) {
         navigate("/");
@@ -35,7 +35,7 @@ const Login = () => {
         alert(result.payload?.message || "Login failed");
       }
     } else {
-      const result = await dispatch(registerAdmin(formData));
+      const result = await dispatch(registerUser(formData));
 
       if (result.payload?.success) {
         navigate("/");
