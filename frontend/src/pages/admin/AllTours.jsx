@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { listTours } from "../../features/admin/addToursSlice.js";
 import { useEffect } from "react";
+import { FiTrash2 } from "react-icons/fi";
 
 const AllTours = () => {
   const dispatch = useDispatch();
@@ -26,12 +27,13 @@ const AllTours = () => {
         <p className="text-gray-500 text-center">No tours added yet.</p>
       ) : (
         <div className="bg-white shadow-md rounded-lg overflow-hidden">
-          <div className="hidden md:grid grid-cols-5 bg-gray-100 text-gray-700 uppercase text-sm font-semibold py-3 px-4">
+          <div className="hidden md:grid grid-cols-6 bg-gray-100 text-gray-700 uppercase text-sm font-semibold py-3 px-4">
             <span>Image</span>
             <span>Tour Name</span>
             <span>Description</span>
             <span>Price</span>
             <span>Date</span>
+            <span>Delete</span>
           </div>
 
           {/* Table Body */}
@@ -39,7 +41,7 @@ const AllTours = () => {
             {tours.map((tour) => (
               <div
                 key={tour._id}
-                className="grid grid-cols-1 md:grid-cols-5 gap-4 py-4 px-4 hover:bg-gray-50 transition duration-200"
+                className="grid grid-cols-1 md:grid-cols-6 gap-4 py-4 px-4 hover:bg-gray-50 transition duration-200"
               >
                 {/* Image */}
                 <div className="flex justify-center md:justify-start">
@@ -66,6 +68,9 @@ const AllTours = () => {
 
                 <div className="flex items-center justify-center md:justify-start text-gray-500 text-sm">
                   {new Date(tour.date).toLocaleDateString()}
+                </div>
+                <div className="flex items-center justify-center md:justify-start text-gray-500 text-sm">
+                 <FiTrash2 size={22}/>
                 </div>
               </div>
             ))}
