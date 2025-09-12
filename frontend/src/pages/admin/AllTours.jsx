@@ -1,11 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
-import { listTours } from "../../features/admin/addToursSlice.js";
+import { deleteTour, listTours } from "../../features/admin/addToursSlice.js";
 import { useEffect } from "react";
 import { FiTrash2 } from "react-icons/fi";
 
 const AllTours = () => {
   const dispatch = useDispatch();
   const { tours, loading, error } = useSelector((state) => state.tour);
+
+    const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this tour?")) {
+      dispatch(deleteTour(id));
+    }
+  };
 
   useEffect(() => {
     dispatch(listTours());
@@ -69,7 +75,7 @@ const AllTours = () => {
                 <div className="flex items-center justify-center md:justify-start text-gray-500 text-sm">
                   {new Date(tour.date).toLocaleDateString()}
                 </div>
-                <div className="flex items-center justify-center md:justify-start text-gray-500 text-sm">
+                <div  onClick={() => handleDelete(tour._id)} className="flex items-center justify-center md:justify-start text-gray-500 text-sm">
                  <FiTrash2 size={22}/>
                 </div>
               </div>
