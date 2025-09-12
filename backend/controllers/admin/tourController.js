@@ -71,7 +71,7 @@ const deleteTour=async(req,res)=>{
         const {tourId}=req.params;
         const adminId=req.adminId;
         await addTourModel.findOneAndDelete({_id:tourId,adminId});
-        res.json({success:true,message:"Tour deleted successfully"})
+        res.json({success:true,message:"Tour deleted successfully",tourId})
     }catch (error) {
         res.json({success:false,message:error.message})
     }
