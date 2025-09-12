@@ -32,6 +32,7 @@ const addTour=async(req,res)=>{
     }
 }
 
+// for admin purpose
 const listTours=async (req,res)=>{
     try {
         const adminId=req.adminId;
@@ -42,7 +43,7 @@ const listTours=async (req,res)=>{
     }
 }
 
-//user
+//for user purpose
 const getAllTours=async(req,res)=>{
     try {
         const allToursData = await addTourModel.find({}).sort({ createdAt: -1 }); // newest first
@@ -65,4 +66,15 @@ const getAllTours=async(req,res)=>{
     }
 }
 
-export {addTour,listTours,getAllTours} 
+const deleteTour=async(req,res)=>{
+    try {
+        const {tourId}=req.params;
+        const adminId=req.adminId;
+        await addTourModel.findOneAndDelete({_id:tourId,adminId});
+        res.json({success:true,message:"Tour deleted successfully"})
+    }catch (error) {
+        res.json({success:false,message:error.message})
+    }
+
+}
+export {addTour,listTours,getAllTours,deleteTour} 
