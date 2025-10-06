@@ -36,7 +36,7 @@ const ExperienceCategories = () => {
         ))}
       </div>
         <div className="text-center mt-16 md:mt-10">
-        <Button to="/book">Book Tour</Button>
+        <Button to="/tours">Book Tour</Button>
       
       </div>
       
