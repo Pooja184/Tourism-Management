@@ -12,7 +12,7 @@ export const registerUser = createAsyncThunk(
       );
       return res.data;
     } catch (err) {
-      console.log(`${backendURL}/api/user/user-register`);
+      // console.log(`${backendURL}/api/user/user-register`);
       return thunkAPI.rejectWithValue(
         err.response?.data?.message || "Something went wrong while registering"
       );
