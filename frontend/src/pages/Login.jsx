@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser, registerUser } from "../features/user/userSlice"; // adjust path if needed
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import {toast} from "react-toastify";
 const Login = () => {
   const [currentState, setCurrentState] = useState("Login");
 
@@ -32,7 +33,9 @@ const Login = () => {
       if (result.payload?.success) {
         navigate("/");
       } else {
-        alert(result.payload?.message || "Login failed");
+        // alert(result.payload?.message || "Login failed");
+        toast(result.payload?.message || "Login failed")
+        setFormData({email:"",password:""});
       }
     } else {
       const result = await dispatch(registerUser(formData));
@@ -40,7 +43,9 @@ const Login = () => {
       if (result.payload?.success) {
         navigate("/");
       } else {
-        alert(result.payload?.message || "Registration failed");
+        // alert(result.payload?.message || "Registration failed");
+        toast(result.payload?.message || "Registration failed")
+
       }
     }
   };
