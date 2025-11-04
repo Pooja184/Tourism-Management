@@ -3,8 +3,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
 import { FaUserCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { userLogout } from "../features/user/userSlice.JS"; // adjust path if needed
-import { adminLogout } from "../features/admin/adminSlice.JS"; // adjust path if needed
+import { userLogout } from "../features/user/userSlice.js"; // adjust path if needed
+import { adminLogout } from "../features/admin/adminSlice.js"; // adjust path if needed
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
