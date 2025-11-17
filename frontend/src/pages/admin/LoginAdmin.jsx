@@ -36,7 +36,7 @@ const Login = () => {
       setSuccess(true);
       setFormData({ name: "", email: "", password: "" });
       setTimeout(() => {
-        navigate("/admin");
+        navigate("/admin/addTours");
       }, 1500);
     } else {
       setSuccess(false);
