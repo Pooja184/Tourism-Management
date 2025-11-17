@@ -95,10 +95,10 @@ const Navbar = () => {
             />
             {mobileDropdownOpen && (
               <div className="mt-3 flex flex-col gap-2 bg-white text-gray-700 p-4 rounded shadow-md w-40">
-                {token ? (
+                {userToken || adminToken ? (
                   <>
-                    <p>Hii, {user?.name || "User"}</p>
-                    <p onClick={handleLogoutUser} className="cursor-pointer hover:text-accent">Logout</p>
+                    <p>Hii, {user || admin?.name || "User"}</p>
+                    <p onClick={user ? handleLogoutUser: handleLogoutAdmin} className="cursor-pointer hover:text-accent">Logout</p>
                   </>
                 ) : (
                   <>
