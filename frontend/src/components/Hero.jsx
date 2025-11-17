@@ -1,7 +1,9 @@
 // src/components/Hero.jsx
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const navigate=useNavigate();
   return (
     <div className="relative h-screen bg-hero-img bg-cover bg-center">
       {/* Overlay */}
@@ -15,7 +17,7 @@ const Hero = () => {
         <p className="text-xl md:text-2xl max-w-xl">
           Explore beaches, forts, temples, and hidden nature trails.
         </p>
-        <button className="mt-6 px-6 py-3 bg-primary text-white font-semibold rounded hover:bg-secondary transition">
+        <button onClick={()=>navigate('/tours')} className="mt-6 px-6 py-3 bg-primary text-white font-semibold rounded hover:bg-secondary transition">
           Book a Tour
         </button>
       </div>
