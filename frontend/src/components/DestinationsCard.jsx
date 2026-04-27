@@ -9,7 +9,13 @@ const DestinationsCard = ({ image, title, description, moreInfo }) => {
       <div className="bg-white h-full shadow-xl rounded-2xl overflow-hidden hover:shadow-2xl transition duration-300 max-w-md  relative">
         {!showMore ? (
           <div className="relative">
-            <img src={image} alt={title} className="w-full h-48 object-cover" />
+            <img
+              src={image}
+              alt={title}
+              loading="lazy"
+              decoding="async"
+              className="w-full h-48 object-cover"
+            />
             <div className="p-5">
               <h3 className="text-2xl font-bold text-green-800 mb-2">{title}</h3>
               <p className="text-gray-700 text-sm">{description}</p>

@@ -45,6 +45,8 @@ const PhotoGallery = () => {
           <img
             src={images[getIndex(index - 1)]}
             alt="previous"
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover"
           />
         </div>
@@ -54,6 +56,8 @@ const PhotoGallery = () => {
           <img
             src={images[index]}
             alt="center"
+            fetchPriority="low"
+            decoding="async"
             className="w-full h-full object-cover"
           />
         </div>
@@ -63,6 +67,8 @@ const PhotoGallery = () => {
           <img
             src={images[getIndex(index + 1)]}
             alt="next"
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover"
           />
         </div>

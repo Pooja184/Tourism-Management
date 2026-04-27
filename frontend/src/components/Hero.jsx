@@ -5,7 +5,14 @@ import { useNavigate } from "react-router-dom";
 const Hero = () => {
   const navigate=useNavigate();
   return (
-    <div className="relative h-screen bg-hero-img bg-cover bg-center">
+    <div className="relative h-screen overflow-hidden">
+      <img
+        src="/images/hero.jpg"
+        alt="Ratnagiri coastal view"
+        fetchPriority="high"
+        decoding="async"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
       {/* Overlay */}
       <div className="absolute inset-0 bg-black bg-opacity-60 z-0"></div>
 

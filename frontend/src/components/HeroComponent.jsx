@@ -4,10 +4,14 @@ import { FaArrowLeft } from "react-icons/fa";
 
 const HeroComponent = ({ heading, description, backgroundImage }) => {
   return (
-    <div
-      className="relative h-[45vh] md:h-[70vh] bg-cover bg-center"
-      style={{ backgroundImage: `url(${backgroundImage})` }}
-    >
+    <div className="relative h-[45vh] md:h-[70vh] overflow-hidden">
+      <img
+        src={backgroundImage}
+        alt={heading}
+        fetchPriority="high"
+        decoding="async"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
       {/* Overlay */}
       <div className="absolute inset-0 bg-gray-800 bg-opacity-60 z-0"></div>
 
