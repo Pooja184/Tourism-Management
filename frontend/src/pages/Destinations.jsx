@@ -168,7 +168,7 @@ const Destinations = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {destinations.map((destination) => (
             <DestinationsCard key={destination.title} {...destination} />
           ))}
