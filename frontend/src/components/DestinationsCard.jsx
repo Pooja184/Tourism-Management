@@ -29,10 +29,10 @@ const DestinationsCard = ({ image, title, description, moreInfo }) => {
   ].filter((item) => item.value);
 
   return (
-    <article className="m-3 mx-auto w-full max-w-md">
-      <div className="group relative overflow-hidden rounded-2xl border border-white/80 bg-white shadow-lg shadow-secondary/10 transition duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-secondary/20">
+    <article className="mx-auto h-full w-full max-w-md p-2">
+      <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/80 bg-white shadow-lg shadow-secondary/10 transition duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-secondary/20">
         {!showMore ? (
-          <div>
+          <div className="flex h-full flex-col">
             <div className="relative overflow-hidden">
               <img
                 src={image}
@@ -46,17 +46,17 @@ const DestinationsCard = ({ image, title, description, moreInfo }) => {
                 Ratnagiri
               </span>
             </div>
-            <div className="p-4 sm:p-5">
+            <div className="flex flex-1 flex-col p-4 sm:p-5">
               <h3 className="mb-2 text-xl font-bold leading-tight text-secondary sm:text-2xl">
                 {title}
               </h3>
-              <p className="line-clamp-3 text-sm leading-6 text-gray-600">
+              <p className="line-clamp-3 min-h-[4.5rem] text-sm leading-6 text-gray-600">
                 {description}
               </p>
               <button
                 type="button"
                 onClick={() => setShowMore(true)}
-                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-secondary/20 transition hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
+                className="mt-auto inline-flex w-full items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-secondary/20 transition hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
                 aria-label={`Show more information about ${title}`}
               >
                 <FaInfoCircle aria-hidden="true" />
