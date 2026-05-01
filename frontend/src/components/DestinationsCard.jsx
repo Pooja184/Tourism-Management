@@ -29,34 +29,34 @@ const DestinationsCard = ({ image, title, description, moreInfo }) => {
   ].filter((item) => item.value);
 
   return (
-    <article className="m-4 sm:m-6 h-full">
-      <div className="group relative flex h-full max-w-md overflow-hidden rounded-2xl border border-white/80 bg-white shadow-lg shadow-secondary/10 transition duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-secondary/20">
+    <article className="m-3 mx-auto w-full max-w-md">
+      <div className="group relative overflow-hidden rounded-2xl border border-white/80 bg-white shadow-lg shadow-secondary/10 transition duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-secondary/20">
         {!showMore ? (
-          <div className="flex h-full w-full flex-col">
+          <div>
             <div className="relative overflow-hidden">
               <img
                 src={image}
                 alt={title}
                 loading="lazy"
                 decoding="async"
-                className="h-56 w-full object-cover transition duration-500 group-hover:scale-105"
+                className="h-44 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-48"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
-              <span className="absolute bottom-4 left-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-secondary shadow-sm">
+              <span className="absolute bottom-3 left-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-secondary shadow-sm">
                 Ratnagiri
               </span>
             </div>
-            <div className="flex flex-1 flex-col p-5">
-              <h3 className="mb-2 text-2xl font-bold leading-tight text-secondary">
+            <div className="p-4 sm:p-5">
+              <h3 className="mb-2 text-xl font-bold leading-tight text-secondary sm:text-2xl">
                 {title}
               </h3>
-              <p className="line-clamp-4 flex-1 text-sm leading-6 text-gray-600">
+              <p className="line-clamp-3 text-sm leading-6 text-gray-600">
                 {description}
               </p>
               <button
                 type="button"
                 onClick={() => setShowMore(true)}
-                className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 text-sm font-semibold text-white shadow-md shadow-secondary/20 transition hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
+                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-secondary/20 transition hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
                 aria-label={`Show more information about ${title}`}
               >
                 <FaInfoCircle aria-hidden="true" />
@@ -65,7 +65,7 @@ const DestinationsCard = ({ image, title, description, moreInfo }) => {
             </div>
           </div>
         ) : (
-          <div className="flex h-full w-full flex-col p-5">
+          <div className="p-4 sm:p-5">
             <button
               type="button"
               onClick={() => setShowMore(false)}
@@ -82,23 +82,23 @@ const DestinationsCard = ({ image, title, description, moreInfo }) => {
                 alt=""
                 loading="lazy"
                 decoding="async"
-                className="h-20 w-24 flex-shrink-0 rounded-xl object-cover"
+                className="h-16 w-20 flex-shrink-0 rounded-xl object-cover sm:h-20 sm:w-24"
               />
               <div>
                 <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-accent">
                   Travel details
                 </p>
-                <h3 className="text-2xl font-bold leading-tight text-secondary">
+                <h3 className="text-xl font-bold leading-tight text-secondary sm:text-2xl">
                   {title}
                 </h3>
               </div>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               {detailItems.map((item) => (
                 <div
                   key={item.label}
-                  className="rounded-xl border border-gray-100 bg-neutral/60 p-4"
+                  className="rounded-xl border border-gray-100 bg-neutral/60 p-3.5"
                 >
                   <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-secondary">
                     <span className="grid h-8 w-8 place-items-center rounded-full bg-white text-accent shadow-sm">
