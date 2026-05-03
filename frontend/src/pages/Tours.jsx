@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
+  FaArrowLeft,
   FaArrowRight,
   FaCalendarAlt,
   FaMapMarkedAlt,
@@ -25,6 +27,7 @@ const formatPrice = (price) =>
 
 const Tours = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { tours, loading, error } = useSelector((state) => state.allTours);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -80,30 +83,40 @@ const Tours = () => {
       <section className="relative overflow-hidden border-b border-amber-100 bg-[radial-gradient(circle_at_top_left,_rgba(255,179,71,0.28),_transparent_34%),linear-gradient(135deg,#133c33_0%,#234b41_55%,#315e52_100%)] px-6 py-16 text-white md:px-10 lg:px-16">
         <div className="absolute -right-16 top-8 h-48 w-48 rounded-full bg-white/10 blur-3xl" />
         <div className="absolute bottom-0 left-10 h-28 w-28 rounded-full bg-amber-300/20 blur-2xl" />
+        <button
+          type="button"
+          onClick={() => navigate(-1)}
+          className="absolute left-6 top-6 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full text-white transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-amber-200 md:left-10 lg:left-16"
+          aria-label="Go back to previous page"
+        >
+          <FaArrowLeft aria-hidden="true" className="text-xl" />
+        </button>
 
-        <div className="relative mx-auto flex max-w-7xl flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-3xl">
-            <p className="mb-4 inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-1 text-sm font-medium tracking-wide text-amber-100 backdrop-blur">
-              Curated Ratnagiri escapes
-            </p>
-            <h1 className="max-w-2xl text-4xl font-black leading-tight sm:text-5xl lg:text-6xl">
-              Book your next coastal getaway with a smoother checkout flow.
-            </h1>
-            <p className="mt-5 max-w-2xl text-base leading-7 text-slate-200 sm:text-lg">
-              Browse handpicked tours, compare dates and prices, and confirm your trip with a clearer booking summary before checkout.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4 sm:max-w-md">
-            <div className="rounded-3xl border border-white/15 bg-white/10 p-5 backdrop-blur">
-              <p className="text-sm uppercase tracking-[0.2em] text-slate-300">Tours</p>
-              <p className="mt-3 text-3xl font-bold">{tours?.length ?? 0}</p>
-              <p className="mt-2 text-sm text-slate-200">Ready to book</p>
+        <div className="relative mx-auto max-w-7xl">
+          <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-3xl">
+              <p className="mb-5 inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium tracking-wide text-amber-100 backdrop-blur">
+                Curated Ratnagiri escapes
+              </p>
+              <h1 className="max-w-2xl text-4xl font-black leading-tight sm:text-5xl lg:text-6xl">
+                Book your next coastal getaway with a smoother checkout flow.
+              </h1>
+              <p className="mt-5 max-w-2xl text-base leading-7 text-slate-200 sm:text-lg">
+                Browse handpicked tours, compare dates and prices, and confirm your trip with a clearer booking summary before checkout.
+              </p>
             </div>
-            <div className="rounded-3xl border border-white/15 bg-white/10 p-5 backdrop-blur">
-              <p className="text-sm uppercase tracking-[0.2em] text-slate-300">Booking</p>
-              <p className="mt-3 text-3xl font-bold">Fast</p>
-              <p className="mt-2 text-sm text-slate-200">Live price preview</p>
+
+            <div className="grid grid-cols-2 gap-4 sm:max-w-md">
+              <div className="rounded-3xl border border-white/15 bg-white/10 p-5 backdrop-blur">
+                <p className="text-sm uppercase tracking-[0.2em] text-slate-300">Tours</p>
+                <p className="mt-3 text-3xl font-bold">{tours?.length ?? 0}</p>
+                <p className="mt-2 text-sm text-slate-200">Ready to book</p>
+              </div>
+              <div className="rounded-3xl border border-white/15 bg-white/10 p-5 backdrop-blur">
+                <p className="text-sm uppercase tracking-[0.2em] text-slate-300">Booking</p>
+                <p className="mt-3 text-3xl font-bold">Fast</p>
+                <p className="mt-2 text-sm text-slate-200">Live price preview</p>
+              </div>
             </div>
           </div>
         </div>
