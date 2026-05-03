@@ -14,6 +14,7 @@ const AddTours = lazy(() => import("./pages/admin/AddTours"));
 const HomeAdmin = lazy(() => import("./pages/admin/Home"));
 const AllTours = lazy(() => import("./pages/admin/AllTours"));
 const Tours = lazy(() => import("./pages/Tours"));
+const Contact = lazy(() => import("./pages/Contact"));
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/waterfalls" element={<Waterfalls />} />
           <Route path="/login" element={<Login />} />
           <Route path="/tours" element={<Tours />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/adminlogin" element={<LoginAdmin />} />
           <Route path="/admin" element={<HomeAdmin />}>
             <Route path="addtours" element={<AddTours />} />
