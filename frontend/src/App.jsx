@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import { ToastContainer } from "react-toastify";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer";
 const Home = lazy(() => import("./pages/Home"));
 const Destinations = lazy(() => import("./pages/Destinations"));
@@ -33,6 +33,7 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/adminlogin" element={<LoginAdmin />} />
           <Route path="/admin" element={<HomeAdmin />}>
+            <Route index element={<Navigate to="addtours" replace />} />
             <Route path="addtours" element={<AddTours />} />
             <Route path="listTours" element={<AllTours />} />
           </Route>
