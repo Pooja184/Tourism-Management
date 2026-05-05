@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
-  FiPlusCircle,
   FiList,
-  FiShoppingBag,
   FiLogOut,
-  FiUser,
   FiMenu,
+  FiPlusCircle,
+  FiUser,
   FiX,
 } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,6 +19,13 @@ const Sidebar = () => {
   const admin = useSelector((state) => state.admin?.admin);
   const adminName = admin?.name || "Admin";
 
+  const navLinkClass = ({ isActive }) =>
+    `flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition ${
+      isActive
+        ? "bg-secondary text-white shadow-md shadow-secondary/20"
+        : "text-slate-600 hover:bg-secondary/10 hover:text-secondary"
+    }`;
+
   const handleLogout = () => {
     dispatch(adminLogout());
     navigate("/");
@@ -27,43 +33,57 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Hamburger button for mobile */}
-      <div className="md:hidden  fixed top-4 left-4 z-50">
+      <div className="fixed left-4 top-4 z-50 md:hidden">
         <button
+          type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="p-2 bg-blue-600 text-white rounded-full shadow-md focus:outline-none"
+          className="grid h-11 w-11 place-items-center rounded-full bg-secondary text-white shadow-lg shadow-secondary/30 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
+          aria-label="Toggle admin menu"
         >
           {isOpen ? <FiX size={22} /> : <FiMenu size={22} />}
         </button>
       </div>
 
-      {/* Sidebar */}
+      {isOpen && (
+        <button
+          type="button"
+          aria-label="Close admin menu"
+          className="fixed inset-0 z-30 bg-slate-950/40 md:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
       <div
-        className={`fixed md:relative top-0 left-0 h-screen w-64 md:w-56 lg:w-[18%] bg-white border-r-2 shadow-md p-4 flex flex-col  z-40 transition-transform duration-300 ${
+        className={`fixed left-0 top-0 z-40 flex h-screen w-72 flex-col border-r border-white/80 bg-white/95 p-5 shadow-2xl shadow-secondary/10 backdrop-blur transition-transform duration-300 md:sticky md:w-64 md:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         }`}
       >
-        {/* Top Section - Admin Info */}
-        <div className="flex items-center gap-3 mb-6 border-b pb-4">
-          <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
-            <FiUser className="text-2xl text-blue-600" />
+        <div className="mb-7 border-b border-slate-100 pb-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+            Ratnagiri
+          </p>
+          <h1 className="mt-1 text-2xl font-black text-secondary">
+            Admin Panel
+          </h1>
+        </div>
+
+        <div className="mb-7 flex items-center gap-3 rounded-2xl bg-neutral p-3">
+          <div className="grid h-12 w-12 place-items-center rounded-full bg-secondary text-xl text-white">
+            <FiUser />
           </div>
-          <div>
-            <h2 className="text-lg font-semibold">{adminName}</h2>
-            <p className="text-gray-500 text-sm">Admin</p>
+          <div className="min-w-0">
+            <h2 className="truncate text-base font-bold text-slate-900">
+              {adminName}
+            </h2>
+            <p className="text-sm text-slate-500">Administrator</p>
           </div>
         </div>
 
-        {/* Navigation Links */}
-        <div className="flex flex-col gap-4">
+        <nav className="flex flex-1 flex-col gap-2">
           <NavLink
             to="/admin/addtours"
             onClick={() => setIsOpen(false)}
-            className={({ isActive }) =>
-              isActive
-                ? "flex items-center gap-3 px-3 py-2 bg-blue-100 text-blue-600 font-semibold rounded"
-                : "flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded"
-            }
+            className={navLinkClass}
           >
             <FiPlusCircle className="text-xl" />
             <span>Add Tours</span>
@@ -72,42 +92,24 @@ const Sidebar = () => {
           <NavLink
             to="/admin/listTours"
             onClick={() => setIsOpen(false)}
-            className={({ isActive }) =>
-              isActive
-                ? "flex items-center gap-3 px-3 py-2 bg-blue-100 text-blue-600 font-semibold rounded"
-                : "flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded"
-            }
+            className={navLinkClass}
           >
             <FiList className="text-xl" />
             <span>List Tours</span>
           </NavLink>
 
-          <NavLink
-            to="/admin/orders"
-            onClick={() => setIsOpen(false)}
-            className={({ isActive }) =>
-              isActive
-                ? "flex items-center gap-3 px-3 py-2 bg-blue-100 text-blue-600 font-semibold rounded"
-                : "flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded"
-            }
+          <button
+            type="button"
+            onClick={() => {
+              handleLogout();
+              setIsOpen(false);
+            }}
+            className="mt-auto flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-red-600 transition hover:bg-red-50"
           >
-            <FiShoppingBag className="text-xl" />
-            <span>Orders</span>
-          </NavLink>
-           {/* Logout Button */}
-        <button
-          onClick={() => {
-            handleLogout();
-            setIsOpen(false);
-          }}
-          className="flex items-center gap-3 px-3 py-2 text-red-600 hover:bg-red-50 rounded w-full mt-6"
-        >
-          <FiLogOut className="text-xl" />
-          <span>Logout</span>
-        </button>
-        </div>
-
-       
+            <FiLogOut className="text-xl" />
+            <span>Logout</span>
+          </button>
+        </nav>
       </div>
     </>
   );
