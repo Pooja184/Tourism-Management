@@ -1,11 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FiCalendar, FiImage, FiTrash2 } from "react-icons/fi";
+import { FiCalendar, FiImage, FiSearch, FiTrash2 } from "react-icons/fi";
 import { deleteTour, listTours } from "../../features/admin/addToursSlice.js";
+
+const currencyFormatter = new Intl.NumberFormat("en-IN");
 
 const AllTours = () => {
   const dispatch = useDispatch();
   const { tours, loading, error } = useSelector((state) => state.tour);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortBy, setSortBy] = useState("newest");
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this tour?")) {
@@ -16,6 +20,21 @@ const AllTours = () => {
   useEffect(() => {
     dispatch(listTours());
   }, [dispatch]);
+
+  const visibleTours = useMemo(() => {
+    const normalizedSearch = searchTerm.trim().toLowerCase();
+    const filteredTours = tours.filter((tour) => {
+      const searchableText = `${tour.tourName || ""} ${tour.description || ""}`.toLowerCase();
+      return searchableText.includes(normalizedSearch);
+    });
+
+    return [...filteredTours].sort((a, b) => {
+      if (sortBy === "priceLow") return Number(a.price || 0) - Number(b.price || 0);
+      if (sortBy === "priceHigh") return Number(b.price || 0) - Number(a.price || 0);
+      if (sortBy === "oldest") return new Date(a.date) - new Date(b.date);
+      return new Date(b.date) - new Date(a.date);
+    });
+  }, [searchTerm, sortBy, tours]);
 
   if (loading) {
     return (
@@ -55,6 +74,29 @@ const AllTours = () => {
         </div>
       </div>
 
+      <div className="mb-5 grid gap-3 rounded-2xl border border-white/80 bg-white p-4 shadow-lg shadow-secondary/10 md:grid-cols-[1fr_220px]">
+        <label className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 focus-within:border-accent focus-within:bg-white">
+          <FiSearch className="text-slate-400" />
+          <input
+            type="search"
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value)}
+            placeholder="Search by tour name or description"
+            className="w-full bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400"
+          />
+        </label>
+        <select
+          value={sortBy}
+          onChange={(event) => setSortBy(event.target.value)}
+          className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700 outline-none transition focus:border-accent focus:bg-white"
+        >
+          <option value="newest">Newest date first</option>
+          <option value="oldest">Oldest date first</option>
+          <option value="priceLow">Price: low to high</option>
+          <option value="priceHigh">Price: high to low</option>
+        </select>
+      </div>
+
       {tours.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center shadow-xl shadow-secondary/10">
           <FiImage className="mx-auto text-4xl text-accent" />
@@ -63,6 +105,16 @@ const AllTours = () => {
           </h3>
           <p className="mt-2 text-sm text-slate-500">
             Add your first tour to show it on the public booking page.
+          </p>
+        </div>
+      ) : visibleTours.length === 0 ? (
+        <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center shadow-xl shadow-secondary/10">
+          <FiSearch className="mx-auto text-4xl text-accent" />
+          <h3 className="mt-4 text-2xl font-bold text-secondary">
+            No matching tours
+          </h3>
+          <p className="mt-2 text-sm text-slate-500">
+            Try a different search term or clear the search box.
           </p>
         </div>
       ) : (
@@ -77,7 +129,7 @@ const AllTours = () => {
           </div>
 
           <div className="divide-y divide-slate-100">
-            {tours.map((tour) => (
+            {visibleTours.map((tour) => (
               <div
                 key={tour._id}
                 className="grid grid-cols-1 gap-4 px-5 py-5 transition duration-200 hover:bg-neutral/70 md:grid-cols-[0.8fr_1.1fr_1.6fr_0.7fr_0.8fr_0.4fr] md:items-center"
@@ -101,7 +153,7 @@ const AllTours = () => {
                 </div>
 
                 <div className="flex items-center justify-center font-bold text-emerald-700 md:justify-start">
-                  Rs. {tour.price}
+                  Rs. {currencyFormatter.format(Number(tour.price || 0))}
                 </div>
 
                 <div className="flex items-center justify-center gap-2 text-sm text-slate-500 md:justify-start">
