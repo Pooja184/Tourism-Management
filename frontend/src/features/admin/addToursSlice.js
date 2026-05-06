@@ -70,6 +70,7 @@ const tourSlice = createSlice({
     builder
       .addCase(addTour.pending, (state) => {
         state.loading = true;
+        state.success = false;
         state.error = null;
       })
       .addCase(addTour.fulfilled, (state, action) => {
@@ -78,10 +79,12 @@ const tourSlice = createSlice({
       })
       .addCase(addTour.rejected, (state, action) => {
         state.loading = false;
+        state.success = false;
         state.error = action.payload;
       })
       .addCase(listTours.pending, (state) => {
         state.loading = true;
+        state.success = false;
         state.error = null;
       })
       .addCase(listTours.fulfilled, (state, action) => {
@@ -94,6 +97,7 @@ const tourSlice = createSlice({
       })
       .addCase(deleteTour.pending, (state) => {
         state.loading = true;
+        state.success = false;
         state.error = null;
       })
       .addCase(deleteTour.fulfilled, (state, action) => {
