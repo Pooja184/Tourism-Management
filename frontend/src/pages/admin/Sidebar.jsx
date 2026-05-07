@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
+  FiGrid,
   FiList,
   FiLogOut,
   FiMenu,
@@ -80,6 +81,16 @@ const Sidebar = () => {
         </div>
 
         <nav className="flex flex-1 flex-col gap-2">
+          <NavLink
+            to="/admin"
+            end
+            onClick={() => setIsOpen(false)}
+            className={navLinkClass}
+          >
+            <FiGrid className="text-xl" />
+            <span>Dashboard</span>
+          </NavLink>
+
           <NavLink
             to="/admin/addtours"
             onClick={() => setIsOpen(false)}
