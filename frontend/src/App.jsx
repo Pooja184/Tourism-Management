@@ -10,6 +10,7 @@ const Temples = lazy(() => import("./pages/Temples"));
 const Waterfalls = lazy(() => import("./pages/Waterfalls"));
 const Login = lazy(() => import("./pages/Login"));
 const LoginAdmin = lazy(() => import("./pages/admin/LoginAdmin"));
+const DashboardAdmin = lazy(() => import("./pages/admin/Dashboard"));
 const AddTours = lazy(() => import("./pages/admin/AddTours"));
 const HomeAdmin = lazy(() => import("./pages/admin/Home"));
 const AllTours = lazy(() => import("./pages/admin/AllTours"));
@@ -33,7 +34,7 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/adminlogin" element={<LoginAdmin />} />
           <Route path="/admin" element={<HomeAdmin />}>
-            <Route index element={<Navigate to="addtours" replace />} />
+            <Route index element={<DashboardAdmin />} />
             <Route path="addtours" element={<AddTours />} />
             <Route path="listTours" element={<AllTours />} />
           </Route>
